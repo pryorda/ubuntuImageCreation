@@ -1,0 +1,8 @@
+*.rc
+extracted
+**/*.swp
+box
+authorized_keys
+packer_cache
+output-virtualbox-ovf
+vmware_output
