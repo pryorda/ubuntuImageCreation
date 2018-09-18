@@ -21,11 +21,11 @@ vcenter_host = ENV['VCENTER_HOST'] \
 output_directory = ENV['OUTPUT_DIR'] \
   || raise("Set OUTPUT_DIR environment variable")
 
-vmware_datastore = = ENV['VMWARE_DATASTORE'] \
+vmware_datastore = ENV['VMWARE_DATASTORE'] \
   || raise("Set VMWARE_DATASTORE environment variable")
 
 
-datacenters = ['vmware-datacenters']
+datacenters = ['Sacramento-RagingWire']
 
 # Functions
 # find_vmx_files: find files in a datacenter takes datastore and directory path

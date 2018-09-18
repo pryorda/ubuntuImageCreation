@@ -1,20 +1,23 @@
+#!/bin/bash -e
 
 # On the configure firewall rules for vnc: https://platform9.com/support/enable-vnc-on-vmware-deployments/
 PACKER_ESXI_VNC_PROBE_TIMEOUT=2s
 
+set -x
 export VMWARE_SSH_USER=${VMWARE_SSH_USER:-"root"}
 export VMWARE_DATASTORE=${VMWARE_DATASTORE:-"tools"}
-export VIRTUAL_MACHINE_NAME=${VIRTUAL_MACHINE_NAME:-"Ubuntu-16.04"}
+export VIRTUAL_MACHINE_NAME=${VIRTUAL_MACHINE_NAME:-"Ubuntu-18.04"}
 export VIRTUAL_MACHINE_VERSION=${VIRTUAL_MACHINE_VERSION:-"v1"}
 export VIRTUAL_MACHINE_NAME="${VIRTUAL_MACHINE_NAME}-${VIRTUAL_MACHINE_VERSION}"
 export VCENTER_HOST=${VCENTER_HOST:-"vcenter.pryorda.dok"}
-export SSH_KEY_FILE=${SSH_KEY_FILE:-"/home/${USERNAME}/.ssh/id_rsa"}
-export OUTPUT_DIR=packer-output-${VIRTUAL_MACHINE_NAME}
+export SSH_KEY_FILE=${SSH_KEY_FILE:-"/home/${USER}/.ssh/id_rsa"}
+export OUTPUT_DIR="packer-output-${VIRTUAL_MACHINE_NAME}"
 export REMOTE_BUILD_HOST=${REMOTE_BUILD_HOST:-"vmware-hypervisor1.pryorda.dok"}
 export VMWARE_NETWORK=${VMWARE_NETWORK:-"VM Network"}
+set +x
 
 # Enable Logging:
-# PACKER_LOG=1
+export PACKER_LOG=1
 
 if [ -z ${PACKER_UBUNTU_PASSWORD} ]; then
     echo "PACKER_UBUNTU_PASSWORD not defined.  Please export this variable to set required ubuntu user password"

@@ -3,6 +3,9 @@
 SSH_USER=${SSH_USERNAME:-vagrant}
 DISK_USAGE_BEFORE_CLEANUP=$(df -h)
 
+# Remove fd0
+sed -i '/\/dev\/fd0/d' /etc/fstab
+
 # Make sure udev does not block our network - http://6.ptmc.org/?p=164
 echo "==> Cleaning up udev rules"
 rm -rf /dev/.udev/

@@ -27,7 +27,11 @@ userdel -r -f vboxadd
 
 echo "===> Removing swap device"
 SWAP_DEVICE="$(/sbin/blkid -t TYPE=swap -o device)"
-swapoff --all
-lvremove -f ${SWAP_DEVICE}
-ESCAPED_DEVICE=$( echo "${SWAP_DEVICE}" | sed 's/\//\\\//g' )
-sed -i "/${ESCAPED_DEVICE}/d" /etc/fstab
+if [ ! -z "${SWAP_DEVICE}" ]; then
+  swapoff --all
+  lvremove -f ${SWAP_DEVICE}
+  ESCAPED_DEVICE=$( echo "${SWAP_DEVICE}" | sed 's/\//\\\//g' )
+  sed -i "/${ESCAPED_DEVICE}/d" /etc/fstab
+fi
+
+true

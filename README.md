@@ -32,8 +32,9 @@ The script has 5 steps. They are:
 2. Create VM
 3. Run the from "scripts": [] in ubuntu.json
 4. Shrink disk
-5. Register with vmware with specific version
+5. Register with vmware with specific version (This is now done via registervm.rb)
 6. ToDo Clean Up: Dangling Resources
+7. Currently you have to convert the tempate to a vm and back to get it to work. I will update the registervm.rb to handle this at somepoint
 
 # Output
 The output will be in datastore tools/output-build dir and will be registered as build vm
