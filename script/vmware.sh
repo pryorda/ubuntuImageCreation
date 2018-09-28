@@ -5,7 +5,7 @@ SSH_USERNAME=${SSH_USERNAME:-vagrant}
 function install_open_vm_tools {
     echo "==> Installing Open VM Tools"
     # Install open-vm-tools so we can mount shared folders
-    apt-get install -y open-vm-tools
+    apt-get install -y open-vm-tools=2:10.0.7-3227872-2ubuntu1
     # Install open-vm-tools-desktop so we can copy/paste, resize, etc.
     if [[ "$DESKTOP" =~ ^(true|yes|on|1|TRUE|YES|ON])$ ]]; then
         apt-get install -y open-vm-tools-desktop

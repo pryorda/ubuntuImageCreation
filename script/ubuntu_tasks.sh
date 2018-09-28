@@ -34,4 +34,8 @@ if [ ! -z "${SWAP_DEVICE}" ]; then
   sed -i "/${ESCAPED_DEVICE}/d" /etc/fstab
 fi
 
+echo "===> Reconfigure dhcp to wait 15s"
+sed -i 's/timeout 300;/timeout 15;/g' /etc/dhcp/dhclient.conf
+sed -i 's/TimeoutStartSec=5min/TimeoutStartSec=1min/g' /etc/systemd/system/network-online.target.wants/networking.service
+
 true
