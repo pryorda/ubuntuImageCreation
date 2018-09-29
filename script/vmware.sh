@@ -5,7 +5,7 @@ SSH_USERNAME=${SSH_USERNAME:-vagrant}
 function install_open_vm_tools {
     echo "==> Installing Open VM Tools"
     # Install open-vm-tools so we can mount shared folders
-    apt-get install -y open-vm-tools=2:10.0.7-3227872-2ubuntu1
+    apt-get install -y open-vm-tools
     # Install open-vm-tools-desktop so we can copy/paste, resize, etc.
     if [[ "$DESKTOP" =~ ^(true|yes|on|1|TRUE|YES|ON])$ ]]; then
         apt-get install -y open-vm-tools-desktop
@@ -65,5 +65,7 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
       fi
     else
       install_vmware_tools
-    fi 
+    fi
+    # Create symlink for /etc/dhcp3 to /etc/dhcp
+    ln -s /etc/dhcp /etc/dhcp3
 fi
