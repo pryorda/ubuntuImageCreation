@@ -29,6 +29,7 @@
       "remote_type": "esx5",
       "remote_host": "{{ user `remote_host` }}",
       "remote_datastore": "{{ user `vmware_datastore` }}",
+      "version": 13,
       "http_directory": "http",
       "vnc_disable_password": true,
       "vnc_port_min": "5900",

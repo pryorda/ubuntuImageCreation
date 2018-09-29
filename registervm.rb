@@ -24,8 +24,10 @@ output_directory = ENV['OUTPUT_DIR'] \
 vmware_datastore = ENV['VMWARE_DATASTORE'] \
   || raise("Set VMWARE_DATASTORE environment variable")
 
+vmware_datacenter = ENV['VMWARE_DATACENTER'] \
+  || raise("Set VMWARE_DATACENTER environment variable")
 
-datacenters = ['Sacramento-RagingWire']
+datacenters = ["#{vmware_datacenter}"]
 
 # Functions
 # find_vmx_files: find files in a datacenter takes datastore and directory path
@@ -86,7 +88,7 @@ end
 # returns hosts
 def find_available_hosts(folder, datastore)
   hosts = find_compute_resources(folder)
-  hosts.reject! { |host| !host.datastore.include?(datastore) }
+  hosts.select! { |host| host.datastore.include?(datastore) }
   hosts
 end
 
@@ -94,9 +96,13 @@ end
 vim = RbVmomi::VIM.connect(host: vcenter_host, user: vmware_ssh_user, \
                            password: vmware_ssh_password, insecure: true)
 
-dc = vim.serviceInstance.find_datacenter(datacenters[0]) \
+dc = vim.serviceInstance.find_datacenter(datacenters.first) \
     || raise('datacenter not found')
-folder = dc.find_folder('Templates')
+
+folder = dc.find_folder('/Templates')
+if folder.nil?
+  folder = dc.find_folder('/').CreateFolder(name: 'Templates') unless dc.find_folder('Templates')
+end
 
 # clean up Discoverd virtual machine orphan
 discovered_vms_folder = dc.find_folder('Discovered virtual machine')
@@ -108,17 +114,16 @@ discovered_vms_folder.childEntity.each do |vm|
 end
 
 # Get resource pool, host, datastore, and cluster
-ds = find_datastore(dc, 'tools')
-host = find_available_hosts(dc.hostFolder, ds)[0] # Grab the 1st available host
+ds = find_datastore(dc, "#{vmware_datastore}")
+host = find_available_hosts(dc.hostFolder, ds).first # Grab the 1st available host
 cluster = dc.hostFolder.childEntity[0] # grab the first datacenter
 rp = cluster.resourcePool
-
 
 puts "Cluster: #{cluster.name}"
 puts "Host: #{host.name}"
 puts "Resource Pool: #{rp.name}"
 puts "Datastore: #{ds.name}"
-vmx_file = find_vmx_files(ds, output_directory)[0]
+vmx_file = find_vmx_files(ds, output_directory).first
 puts "Registering File: #{vmx_file}"
 
 begin
