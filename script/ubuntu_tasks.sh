@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eux
 
 echo "==> Ubuntu Tasks"
 
@@ -36,7 +36,6 @@ fi
 
 echo "===> Reconfigure dhcp to wait 15s"
 sed -i 's/timeout 300;/timeout 15;/g' /etc/dhcp/dhclient.conf
-sed -i 's/TimeoutStartSec=5min/TimeoutStartSec=1min/g' /etc/systemd/system/network-online.target.wants/networking.service
 
 echo "===> Configure sshd"
 sed -i 's/^#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/' /etc/ssh/sshd_config
@@ -45,5 +44,3 @@ echo "===> Disable IPv6"
 echo 'net.ipv6.conf.all.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
 echo 'net.ipv6.conf.default.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
 echo 'net.ipv6.conf.lo.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
-
-true
