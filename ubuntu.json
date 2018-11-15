@@ -114,6 +114,7 @@
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
     "install_vagrant_key": "true",
+    "remove_netplan": "true",
     "iso_checksum": "87bedd68607f059ca973f86346bbdf1caa6e1077",
     "iso_checksum_type": "sha1",
     "iso_name": "ubuntu-18.04.1-server-amd64.iso",

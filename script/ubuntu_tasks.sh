@@ -34,9 +34,6 @@ if [ ! -z "${SWAP_DEVICE}" ]; then
   sed -i "/${ESCAPED_DEVICE}/d" /etc/fstab
 fi
 
-echo "===> Reconfigure dhcp to wait 15s"
-sed -i 's/timeout 300;/timeout 15;/g' /etc/dhcp/dhclient.conf
-
 echo "===> Configure sshd"
 sed -i 's/^#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/' /etc/ssh/sshd_config
 
@@ -44,3 +41,9 @@ echo "===> Disable IPv6"
 echo 'net.ipv6.conf.all.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
 echo 'net.ipv6.conf.default.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
 echo 'net.ipv6.conf.lo.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
+
+if [ -n "${remove_netplan}" ]; then
+  echo "===> Disabling netplan"
+  apt purge -y nplan netplan.io
+  apt install -y ifupdown
+fi
