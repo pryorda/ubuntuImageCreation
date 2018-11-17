@@ -34,9 +34,6 @@ if [ ! -z "${SWAP_DEVICE}" ]; then
   sed -i "/${ESCAPED_DEVICE}/d" /etc/fstab
 fi
 
-echo "===> Reconfigure dhcp to wait 15s"
-sed -i 's/timeout 300;/timeout 15;/g' /etc/dhcp/dhclient.conf
-
 echo "===> Configure sshd"
 sed -i 's/^#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/' /etc/ssh/sshd_config
 
