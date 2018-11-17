@@ -41,9 +41,3 @@ echo "===> Disable IPv6"
 echo 'net.ipv6.conf.all.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
 echo 'net.ipv6.conf.default.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
 echo 'net.ipv6.conf.lo.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-ipv6.conf
-
-if [ -n "${remove_netplan}" ]; then
-  echo "===> Disabling netplan"
-  apt purge -y nplan netplan.io
-  apt install -y ifupdown
-fi
