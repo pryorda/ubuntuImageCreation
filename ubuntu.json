@@ -19,54 +19,54 @@
         "initrd=/install/initrd.gz -- <enter>"
       ],
       "disk_size": "{{ user `disk_size` }}",
+      "disk_type_id": "zeroedthick",
       "floppy_files": [
         "http/{{ user `preseed` }}"
       ],
       "guest_os_type": "{{ user `vmware_guest_os_type` }}",
       "headless": "{{ user `headless` }}",
-      "remote_password": "{{ user `remote_password` }}",
-      "remote_username": "{{ user `remote_username` }}",
-      "remote_type": "esx5",
-      "remote_host": "{{ user `remote_host` }}",
-      "remote_datastore": "{{ user `vmware_datastore` }}",
-      "skip_export": true,
-      "version": 13,
       "http_directory": "http",
-      "vnc_disable_password": true,
-      "vnc_port_min": "5900",
-      "vnc_port_max": "5910",
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_urls": [
         "{{ user `iso_path` }}/{{ user `iso_name` }}",
         "{{ user `iso_url` }}"
       ],
       "output_directory": "{{user `output_directory`}}",
+      "remote_datastore": "{{ user `vmware_datastore` }}",
+      "remote_host": "{{ user `remote_host` }}",
+      "remote_password": "{{ user `remote_password` }}",
+      "remote_type": "esx5",
+      "remote_username": "{{ user `remote_username` }}",
       "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
+      "skip_compaction": true,
+      "skip_export": true,
       "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_timeout": "10000s",
       "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
+      "ssh_disable_agent_forwarding": true,
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
+      "version": 13,
       "vm_name": "{{ user `vm_name` }}",
       "vmx_data": {
-        "ethernet0.pcislotnumber": "160",
-        "ethernet0.virtualdev": "vmxnet3",
         "ethernet0.networkname": "{{ user `vmware_network` }}",
-        "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}"
+        "ethernet0.pcislotnumber": "160",
+        "ethernet0.virtualdev": "vmxnet3"
       },
       "vmx_data_post": {
         "vmxnet3.rev.30": "FALSE"
       },
-      "vmx_remove_ethernet_interfaces": false
+      "vmx_remove_ethernet_interfaces": false,
+      "vnc_disable_password": true,
+      "vnc_port_max": "5910",
+      "vnc_port_min": "5900"
     }
   ],
   "provisioners": [
     {
-        "type": "file",
-        "source": "script/removeVagrant.sh",
-        "destination": "/home/vagrant/removeVagrant.sh"
+      "destination": "/home/vagrant/removeVagrant.sh",
+      "source": "script/removeVagrant.sh",
+      "type": "file"
     },
     {
       "environment_vars": [
@@ -111,36 +111,37 @@
     "disk_size": "40000",
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "headless": "true",
+    "hostname": "vagrant",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
     "install_vagrant_key": "true",
-    "iso_checksum": "57c3a25f2c5fd61596ce39afbff44dd49b0089a2",
-    "iso_checksum_type": "sha1",
-    "iso_name": "ubuntu-18.04.2-server-amd64.iso",
+    "iso_checksum": "36f15879bd9dfd061cd588620a164a82972663fdd148cce1f70d57d314c21b73",  
+    "iso_checksum_type": "sha256",
+    "iso_name": "ubuntu-20.04-legacy-server-amd64.iso",
+    "iso_url": "http://cdimage.ubuntu.com/ubuntu-legacy-server/releases/20.04/release/ubuntu-20.04-legacy-server-amd64.iso",
     "iso_path": "./isos/ubuntu",
-    "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.2-server-amd64.iso",
     "locale": "en_US",
     "memory": "512",
     "no_proxy": "{{env `no_proxy`}}",
+    "output_directory": "{{env `OUTPUT_DIR`}}",
     "parallels_guest_os_type": "ubuntu",
-    "preseed" : "preseed.cfg",
+    "preseed": "preseed.cfg",
+    "remote_host": "{{env `REMOTE_BUILD_HOST`}}",
+    "remote_password": "{{env `VMWARE_SSH_PASSWORD` }}",
+    "remote_username": "{{env `VMWARE_SSH_USER` }}",
     "rsync_proxy": "{{env `rsync_proxy`}}",
-    "hostname": "vagrant",
     "ssh_fullname": "vagrant",
     "ssh_password": "vagrant",
     "ssh_username": "vagrant",
+    "ubuntu_authorized_key": "{{env `UBUNTU_AUTHORIZED_KEY`}}",
+    "ubuntu_password": "{{env `PACKER_UBUNTU_PASSWORD`}}",
     "update": "true",
     "vagrantfile_template": "",
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "{{env `VIRTUAL_MACHINE_NAME`}}",
-    "vmware_guest_os_type": "ubuntu-64",
-    "ubuntu_password": "{{env `PACKER_UBUNTU_PASSWORD`}}",
-    "ubuntu_authorized_key": "{{env `UBUNTU_AUTHORIZED_KEY`}}",
-    "remote_password": "{{env `VMWARE_SSH_PASSWORD` }}",
-    "remote_username": "{{env `VMWARE_SSH_USER` }}",
-    "vmware_network": "{{env `VMWARE_NETWORK` }}",
-    "remote_host": "{{env `REMOTE_BUILD_HOST`}}",
     "vmware_datastore": "{{env `VMWARE_DATASTORE` }}",
-    "output_directory": "{{env `OUTPUT_DIR`}}"
+    "vmware_guest_os_type": "ubuntu-64",
+    "vmware_network": "{{env `VMWARE_NETWORK` }}"
   }
 }
+

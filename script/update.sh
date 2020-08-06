@@ -19,7 +19,7 @@ apt-get -y update
 if [[ $UPDATE  =~ true || $UPDATE =~ 1 || $UPDATE =~ yes ]]; then
     echo "==> Performing dist-upgrade (all packages and kernel)"
     export DEBIAN_FRONTEND=noninteractive
-    apt-get -y dist-upgrade --force-yes
+    apt-get -y dist-upgrade --allow
     reboot
     sleep 60
 fi
