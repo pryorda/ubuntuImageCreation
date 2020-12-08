@@ -111,7 +111,7 @@ discovered_vms_folder.childEntity.each do |vm|
     puts "Unregistering orphaned VM: #{vm.name}"
     vm.UnregisterVM
   end
-end
+end unless discovered_vms_folder.nil?
 
 # Get resource pool, host, datastore, and cluster
 ds = find_datastore(dc, "#{vmware_datastore}")
