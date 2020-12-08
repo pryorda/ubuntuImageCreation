@@ -48,14 +48,7 @@
       "type": "vmware-iso",
       "version": 13,
       "vm_name": "{{ user `vm_name` }}",
-      "vmx_data": {
-        "ethernet0.networkname": "{{ user `vmware_network` }}",
-        "ethernet0.pcislotnumber": "160",
-        "ethernet0.virtualdev": "vmxnet3"
-      },
-      "vmx_data_post": {
-        "vmxnet3.rev.30": "FALSE"
-      },
+      "network_name": "{{ user `vmware_network` }}",
       "vmx_remove_ethernet_interfaces": false,
       "vnc_disable_password": true,
       "vnc_port_max": "5910",
