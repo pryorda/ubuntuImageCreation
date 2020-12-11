@@ -93,6 +93,7 @@
         "script/vmware.sh",
         "script/virtualbox.sh",
         "script/parallels.sh",
+        "script/installifUpDown.sh",
         "script/motd.sh",
         "{{user `custom_script`}}",
         "script/minimize.sh",
