@@ -1,0 +1,8 @@
+      "vmx_data": {
+        "ethernet0.networkname": "{{ user `vmware_network` }}",
+        "ethernet0.pcislotnumber": "160",
+        "ethernet0.virtualdev": "vmxnet3"
+      },
+      "vmx_data_post": {
+        "vmxnet3.rev.30": "FALSE"
+      },

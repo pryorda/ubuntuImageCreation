@@ -25,8 +25,8 @@ echo "==> Removing development tools"
 apt-get -y purge build-essential git
 echo "==> Removing default system Ruby"
 apt-get -y purge ruby ri doc
-echo "==> Removing default system Python"
-#apt-get -y purge python-dbus libnl1 python-smartpm python-twisted-core libiw30 python-twisted-bin libdbus-glib-1-2 python-pexpect python-pycurl python-serial python-gobject python-pam python-openssl libffi5
+#echo "==> Removing default system Python"
+#apt-get -y purge python-dbus libnl1 python-smartpm python-twisted-core libiw30 python-twisted-bin libdbus-glib-1-2 python-pexpect #python-pycurl python-serial python-gobject python-pam python-openssl libffi5
 echo "==> Removing X11 libraries"
 apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6
 echo "==> Removing obsolete networking components"
@@ -40,11 +40,11 @@ apt-get -y autoclean
 apt-get -y clean
 
 # Clean up orphaned packages with deborphan
-apt-get -y install deborphan
-while [ -n "$(deborphan --guess-all --libdevel)" ]; do
-    deborphan --guess-all --libdevel | xargs apt-get -y purge
-done
-apt-get -y purge deborphan dialog
+# apt-get -y install deborphan
+# while [ -n "$(deborphan --guess-all --libdevel)" ]; do
+#     deborphan --guess-all --libdevel | xargs apt-get -y purge
+# done
+# apt-get -y purge deborphan dialog
 
 echo "==> Removing man pages"
 rm -rf /usr/share/man/*

@@ -1,0 +1,11 @@
+auto <%= interface %>
+<% if interface_data.nil? || interface_data['dhcp4'] -%>
+iface <%= interface %> inet dhcp
+<% else -%>
+iface <%= interface %> inet static
+  address <%= interface_data['addresses'][0] %>
+<% unless interface_data['gateway4'].nil? -%>
+  up route add default gw <%= interface_data['gateway4'] %>
+<% end -%>
+<% end -%>
+  pre-up /sbin/ethtool -G <%= interface %> rx-mini 0 || true

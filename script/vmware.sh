@@ -18,7 +18,6 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
     KERNEL_VERSION=$(uname -r | cut -d. -f1-2)
     echo "==> Kernel version ${KERNEL_VERSION}"
     install_open_vm_tools
-
     # Create symlink for /etc/dhcp3 to /etc/dhcp
     ln -s /etc/dhcp /etc/dhcp3
 fi
