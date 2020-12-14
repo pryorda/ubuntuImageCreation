@@ -90,6 +90,7 @@
         "script/update.sh",
         "script/vagrant.sh",
         "script/sshd.sh",
+        "script/disableSystemdNetworkd.sh",
         "script/vmware.sh",
         "script/virtualbox.sh",
         "script/parallels.sh",
