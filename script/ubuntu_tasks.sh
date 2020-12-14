@@ -46,3 +46,6 @@ echo 'net.ipv6.conf.lo.disable_ipv6 = 1' | sudo tee -a /etc/sysctl.d/10-disable-
 
 echo "===> Creating interfaces.d directory"
 mkdir -p /etc/network/interfaces.d/
+
+echo "===> Remove old netplan file (vmware customization workaround)"
+rm -v /etc/netplan/01-netcfg.yaml
