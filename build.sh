@@ -48,6 +48,6 @@ echo "==> Building ESX (vmware-iso) VM ${VIRTUAL_MACHINE_NAME}"
 packer build --only=vmware-iso ubuntu.json
 
 echo '==> Copy shrinkdisk.sh to host'
-scp -i ${SSH_KEY_FILE} -o 'StrictHostKeyChecking=no' shrinkdisk.sh ${VMWARE_SSH_USER}@${REMOTE_BUILD_HOST}:/tmp/shrinkdisk.sh
+sshpass -e scp -i ${SSH_KEY_FILE} -o 'StrictHostKeyChecking=no' shrinkdisk.sh ${VMWARE_SSH_USER}@${REMOTE_BUILD_HOST}:/tmp/shrinkdisk.sh
 echo '==> Shrink disk'
-ssh -i ${SSH_KEY_FILE} -o 'StrictHostKeyChecking=no' ${VMWARE_SSH_USER}@${REMOTE_BUILD_HOST} "export VMWARE_DATASTORE=${VMWARE_DATASTORE} && export OUTPUT_DIR=${OUTPUT_DIR} && sh /tmp/shrinkdisk.sh"
+sshpass -e ssh -i ${SSH_KEY_FILE} -o 'StrictHostKeyChecking=no' ${VMWARE_SSH_USER}@${REMOTE_BUILD_HOST} "export VMWARE_DATASTORE=${VMWARE_DATASTORE} && export OUTPUT_DIR=${OUTPUT_DIR} && sh /tmp/shrinkdisk.sh"

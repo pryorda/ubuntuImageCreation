@@ -1,6 +1,8 @@
 #!/bin/bash -eux
 
 echo "==> Ubuntu Tasks"
+echo "===> Update apt"
+apt-get update
 
 echo "===> Creating ubuntu user"
 useradd -m -G sudo -s /bin/bash ubuntu

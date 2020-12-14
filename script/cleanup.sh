@@ -21,10 +21,6 @@ if [ -d "/var/lib/dhcp" ]; then
     rm /var/lib/dhcp/*
 fi 
 
-UBUNTU_VERSION=$(lsb_release -sr)
-# Add delay to prevent "vagrant reload" from failing
-echo "pre-up sleep 2" >> /etc/network/interfaces
-
 echo "==> Cleaning up tmp"
 rm -rf /tmp/*
 
@@ -55,13 +51,13 @@ let count--
 dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count
 rm /tmp/whitespace
 
-# Whiteout /boot
-if grep -q /boot /etc/fstab; then 
-  count=$(df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}')
-  let count--
-  dd if=/dev/zero of=/boot/whitespace bs=1024 count=$count
-  rm /boot/whitespace
-fi
+ # Whiteout /boot # TODO: set it to only do this if its seperate 
+#  if grep -q /boot /etc/fstab; then 
+#   count=$(df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}')
+#   let count--
+#   dd if=/dev/zero of=/boot/whitespace bs=1024 count=$count
+#   rm /boot/whitespace
+# fi
 
 # I dont need no stinking swap in my templates
 # echo '==> Clear out swap and disable until reboot'
